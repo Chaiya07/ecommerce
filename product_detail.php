@@ -37,4 +37,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'qty' => $productId['qty'],
         ];
     }
+    $message = 'เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว';
 }
+include 'includes/header.php';
+$image = !empty($product['image']) ? 'uploads/products/' . $product['image'] :'';
+?>
+<div class="row">
+    <div class="col-md-5">
+        <img src="<?= $image ?>" class="img-fluid rounded shadow"
+        alt="<?= htmlspecialchars($product['name']) ?>">
+    </div>
+    <div class="col-md-7">
+        <h2><?= htmlspecialchars($product['name']) ?></h2>
+        <hr><h3 class="text-danger"><?= number_format($product['price'],2) ?> บาท</h3>
+        <p><strong>จำนวนคงเหลือ :</strong><?= $product['stock'] ?> ชิ้น</p>
+        <p><?= nl2br(htmlspecialchars($product['description'])) ?></p>
+        <?php if ($message): ?>
+            <div class="alert alert-success">
+                <?= $message ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($product['stock'] > 0): ?>
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="form-leble">จำนวน</label>
+                        <input type="number" name="quantity" class="form-control"
+                        value="1" min="1" max="<?= $product['stock'] ?>">
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-success">เพิ่มลงตะกร้า</button>
+                    <a href="cart.php" class="btn btn-primary">ดูตะกร้าสินค้า</a>
+                </div>
+            </form>
+        <?php else: ?>
+            <div class="alert alert-danger mt-3">สินค้าหมด</div>
+        <?php endif; ?>
+    </div>
+</div>
+<?php include 'includes/footer.php'; ?>
