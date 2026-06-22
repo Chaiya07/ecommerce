@@ -12,7 +12,7 @@ if (isset($_GET['remove'])) {
     if (isset($_SESSION['cart'][$productId])) {
         unset($_SESSION['cart'][$productId]);
     }
-    header('Location: product.php');
+    header('Location: products.php');
     exit;
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_cart'])) {
