@@ -2,7 +2,7 @@
 require_once __DIR__ .'/config/database.php';
 $keyword = $_GET['keyword']?? '';
 $sql = $conn->prepare("
-SELECT * FORM products WHERE name LIKE ? ORDER BY id DESC
+SELECT * FROM products WHERE name LIKE ? ORDER BY id DESC
 ");
 $sql->execute(["%{$keyword}%"]);
 $products = $sql->fetchAll(PDO::FETCH_ASSOC);

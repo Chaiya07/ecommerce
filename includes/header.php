@@ -5,23 +5,23 @@ if (session_status()=== PHP_SESSION_NONE){
 require_once __DIR__ .'/../config/database.php';
 $cartCount = 0;
 if(!empty($_SESSION['cart'])){
-    foreach ($_SESSION['care'] as $item){
-        $cartCount += $item['qtu'];
+    foreach ($_SESSION['cart'] as $item){
+        $cartCount += $item['qty'];
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="th">
     <head>
-        <mata charset="UTF-8">
-        <mata name="viewport" content="width=device-width, initial-scale=1">
-        <title>nanthicha E-commerce</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>chaiya E-commerce</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         <nav  class="navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                  <a class="navbar-brand" herf="index.php">ซีเค้ก</a>
+                  <a class="navbar-brand" href="index.php">ซีเค้ก</a>
                   <button class="navber-toggler" type="button"
                   data-bs-toggler="collapse" data-bs-traget="#navbarMenu">
                   <span class="navber-toggler-icon"></span>

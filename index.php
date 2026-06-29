@@ -1,11 +1,9 @@
 <?php
-require_once __DIR__ .'/config/database.php';
-$sql = $conn->prepare("
-SELECT * FORM products ORDER BY id DESC LIMIT 8
-");
+require_once __DIR__ . '/config/database.php';
+$sql = $conn->prepare("SELECT * FROM products ORDER BY id DESC LIMIT 8");
 $sql->execute();
 $products = $sql->fetchAll(PDO::FETCH_ASSOC);
-include '';
+include 'includes/header.php';
 ?>
 <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-3">
@@ -13,13 +11,13 @@ include '';
         <p class="col-md-8 fs-5">
             เลือกซื้อสินค้าคุณภาพดี ราคาคุ้มค่า พร้อมโปรโมชั่นพิเศษ
         </p>
-        <a href="products.php" class="btn-primary btn-lg">
+        <a href="products.php" class="btn btn-primary btn-lg">
             เลือกซื้อสินค้า
         </a>
     </div>
 </div>
 <div class="row">
-    <div class="col-10 mb-4">
+    <div class="col-12 mb-4">
         <h2>สินค้าล่าสุด</h2>
     </div>
 </div>
@@ -28,35 +26,32 @@ include '';
         <?php foreach ($products as $product) : ?>
             <div class="col-md-3 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <?php $image = !empty($products['image'])
-                    ? 'uploads/products/' . $product['image']
-                    :'https://via.placehoder.com/300x250?text=NO+Image';
+                    <?php $image = !empty($product['image'])
+                        ? 'uploads/products/' . $product['image']
+                        : 'https://via.placeholder.com/300x250?text=No+Image';
                     ?>
-                    <img src="<?= $image ?>" class="card-img-top">
-                    alt="<?=  htmlspecialchars($product['name']) ?>"
-                    style="height: 250px; obgect-fit:cover;">
+                    <img src="<?= $image ?>" class="card-img-top"
+                        alt="<?= htmlspecialchars($product['name']) ?>"
+                        style="height: 250px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-titlm">
+                        <h5 class="card-title">
                             <?= htmlspecialchars($product['name']) ?>
-                    </h5>
-                    <p class="text-danger fw-bold mb-2">
-                        <?= number_format($product['price'], 2) ?> บาท
-                    </p>
-                    <p class="text-muted">
-                    </p>
+                        </h5>
+                        <p class="text-danger fw-bold mb-2">
+                            <?= number_format($product['price'], 2) ?> บาท
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="product_detail.php?id=<?= $product['id'] ?>"
+                            class="btn btn-primary w-100">ดูรายละเอียด</a>
                     </div>
                 </div>
-                <div class="card-footer bg-white border-0">
-                    <a href="product_detail.php?id<?= $product['id'] ?>"
-                    class="btn btn-primary w-100">ดูรายละเอียด</a>
-                </div>
             </div>
-        <div
         <?php endforeach; ?>
     <?php else : ?>
         <div class="col-12">
-            <div class="alert alert-waring">ไม่พบสินค้าในระบบ</div>
+            <div class="alert alert-warning">ไม่พบสินค้าในระบบ</div>
         </div>
     <?php endif; ?>
 </div>
-<?php include'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

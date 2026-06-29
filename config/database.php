@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'ecommerce_nanthicha';
+$dbname = 'ecommerce_chaiya';
 $username = 'root';
 $password = '';
 try {
