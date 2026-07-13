@@ -1,0 +1,99 @@
+/* ==========================================================
+   FRONTEND
+========================================================== */
+
+body{
+	font-family:'Segoe UI',Tahoma,sans-serif;
+	background:#f8f9fa;
+	color:#333;
+}
+
+/* ==========================================================
+   NAVBAR
+========================================================== */
+
+.navbar-brand{
+	font-weight:700;
+}
+
+/* ==========================================================
+   PRODUCT CARD
+========================================================== */
+
+.product-card{
+	border:none;
+	border-radius:12px;
+	overflow:hidden;
+	transition:.2s;
+	box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.product-card:hover{
+	transform:translateY(-3px);
+	box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.product-card img{
+	height:250px;
+	object-fit:cover;
+}
+
+/* ==========================================================
+   PRODUCT DETAIL
+========================================================== */
+
+.product-detail-image{
+	width:100%;
+	border-radius:12px;
+}
+
+/* ==========================================================
+   PRICE
+========================================================== */
+
+.price{
+	font-size:24px;
+	font-weight:700;
+	color:#dc3545;
+}
+
+/* ==========================================================
+   CART
+========================================================== */
+
+.cart-image{
+	width:80px;
+	height:80px;
+	object-fit:cover;
+	border-radius:8px;
+}
+
+/* ==========================================================
+   CHECKOUT
+========================================================== */
+
+.checkout-summary{
+	background:#fff;
+	padding:20px;
+	border-radius:12px;
+	box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+footer{
+	background:#212529;
+	color:#fff;
+	margin-top:50px;
+}
+
+footer a{
+	color:#fff;
+	text-decoration:none;
+}
+
+footer a:hover{
+	color:#0d6efd;
+}

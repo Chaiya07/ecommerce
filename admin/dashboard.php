@@ -1,6 +1,6 @@
 <?php
 require_once '../config/database.php';
-require_once '../includes/admin_auth.php';
+require_once 'includes/admin_auth.php';
 
 $sql = $conn->query("SELECT COUNT(*) AS total FROM users");
 $totalUsers = $sql->fetch(PDO::FETCH_ASSOC)['total'];
@@ -15,10 +15,10 @@ $sql = $conn->query("SELECT IFNULL(SUM(total_price), 0) AS total FROM orders WHE
 $totalSales = $sql->fetch(PDO::FETCH_ASSOC)['total'];
 
 $sql = $conn->query("SELECT id, customer_name, total_price, payment_status,
-    shipping_status, create_at FROM orders ORDER BY id DESC LIMIT 10");
+    shipping_status, created_at FROM orders ORDER BY id DESC LIMIT 10");
 $orders = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 <div class="container-fluid">
     <h2 class="mb-4">Dashboard</h2>
@@ -75,7 +75,7 @@ include 'includes/header.php';
                                 <td><?= number_format($order['total_price'], 2) ?></td>
                                 <td><?= htmlspecialchars($order['payment_status']) ?></td>
                                 <td><?= htmlspecialchars($order['shipping_status']) ?></td>
-                                <td><?= date("d/m/Y H:i", strtotime($order['create_at'])) ?></td>
+                                <td><?= date("d/m/Y H:i", strtotime($order['created_at'])) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

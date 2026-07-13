@@ -1,5 +1,5 @@
 </div>
-<footer class="bg-dark text-white text-center py-3 me-5">
+<footer class="bg-dark text-white text-center py-3">
     Copyright © <?= date("Y") ?>
     Chaiya E-Commerce System
 </footer>

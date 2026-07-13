@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/config/database.php';
-$sql = $conn->prepare("SELECT * FROM products ORDER BY id DESC LIMIT 8");
+$sql = $conn->prepare("
+SELECT * FROM products ORDER BY id DESC LIMIT 8
+");
 $sql->execute();
 $products = $sql->fetchAll(PDO::FETCH_ASSOC);
 include 'includes/header.php';

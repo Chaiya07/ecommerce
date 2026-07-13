@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once __DIR__ . '../../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     header('Location:../login.php');
     exit();
@@ -23,7 +23,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <html lang="th">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width-device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>
             <?= htmlspecialchars($storeName) ?> | Admin Panel
         </title>
@@ -34,10 +34,14 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             .navbar {box-shadow: 0 2px 8px rgba(0, 0, 0, .08);}
             .navbar-brand{font-weight: bold;}
             .sidebar{min-height: 100vh; background: #212529;}
-            .sidebar a {display: block;padding: 14px 20px; transition: 2s;
+            .sidebar a {display: block;padding: 14px 20px; transition: .25s;
             color: #fff; text-decoration: none;
             display: block; padding: 12px 18px;}
-            .sidebar a.hover{background: #0d6efd; color: #fff; padding-left: 28px;}
+            .sidebar a:hover {
+            background: #0d6efd;
+            color: #fff;
+            padding-left: 28px;
+            }
             .sidebar a.active {background-color: #0d6efd; font-weight: bold;}
             .content {padding: 25px;}
             .card {border: none; border-radius: 12px;}
@@ -52,7 +56,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <?= htmlspecialchars($storeName) ?>Admin
                 </a>
                 <button class="navbar-toggler" type="button" 
-                data-bs-toggler="collapse" data-bs-target="#navbarAdmin">
+                data-bs-toggle="collapse" data-bs-target="#navbarAdmin">
                 <span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarAdmin">
                     <ul class="navbar-nav ms-auto">
@@ -71,10 +75,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </div>
             </div>
         </nav>
-        <div class="containerfluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2 col-md-3 p-0">
-                    <?php include __DIR__ . 'sidebar.php'; ?>
+                    <?php include __DIR__ . '/sidebar.php'; ?>
                 </div>
                 <div class="col-lg-10 col-md-9">
                     <div class="content">
