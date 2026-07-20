@@ -1,15 +1,9 @@
 <?php
 require_once __DIR__ . '/config/database.php';
 session_start();
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-
 $message = '';
 $discount = 0;
 $couponCode = '';
-
 if (isset($_GET['remove'])) {
     $productId = (int)$_GET['remove'];
     if (isset($_SESSION['cart'][$productId])) {
@@ -17,8 +11,7 @@ if (isset($_GET['remove'])) {
     }
     header('Location: cart.php');
     exit;
-}
-
+}   
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_cart'])) {
     foreach ($_POST['qty'] as $productId => $qty) {
         $qty = (int)$qty;
@@ -85,6 +78,7 @@ $total = 0;
                         <tr>
                             <td><img src="<?= $image ?>" class="img-fluid" style="max-height: 80px;"></td>
                             <td><?= htmlspecialchars($item['name']) ?></td>
+                            
                             <td><?= number_format($item['price'], 2) ?></td>
                             <td>
                                 <input type="number" name="qty[<?= $item['id'] ?>]"
