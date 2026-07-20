@@ -20,8 +20,18 @@ if (!empty($_SESSION['cart'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .avatar-img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+        }
+        .avatar-icon {
+            font-size: 32px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,7 +42,7 @@ if (!empty($_SESSION['cart'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">หน้าหลัก</a>
                     </li>
@@ -43,16 +53,43 @@ if (!empty($_SESSION['cart'])) {
                         <a class="nav-link" href="cart.php">ตระกร้า (<?= $cartCount ?>)</a>
                     </li>
                     <?php if (!empty($_SESSION['user'])) : ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile.php">โปรไฟล์</a>
-                        </li>
-                        <?php if ($_SESSION['user']['role'] === 'admin') : ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="admin/dashboard.php">ADMIN</a>
-                            </li>
-                        <?php endif; ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout.php">ออกจากระบบ</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                role="button" data-bs-toggle="dropdown">
+                                <?php if (!empty($_SESSION['user']['avatar'])) : ?>
+                                    <img src="uploads/avatars/<?= htmlspecialchars($_SESSION['user']['avatar']) ?>"
+                                        class="rounded-circle avatar-img me-2">
+                                <?php else : ?>
+                                    <i class="bi bi-person-circle avatar-icon me-2"></i>
+                                <?php endif; ?>
+                                <?= htmlspecialchars($_SESSION['user']['username']) ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="profile.php">
+                                        <i class="bi bi-person"></i> โปรไฟล์
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="my_orders.php">
+                                        <i class="bi bi-receipt"></i> คำสั่งซื้อของฉัน
+                                    </a>
+                                </li>
+                                <?php if ($_SESSION['user']['role'] === 'admin') : ?>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="admin/dashboard.php">
+                                            <i class="bi bi-speedometer2"></i> Admin Dashboard
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="logout.php">
+                                        <i class="bi bi-box-arrow-right"></i> ออกจากระบบ
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     <?php else : ?>
                         <li class="nav-item">
