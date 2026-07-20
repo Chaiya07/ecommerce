@@ -1,6 +1,6 @@
 <?php
 require_once '../config/database.php';
-require_once '../includes/admin_auth.php';
+require_once 'includes/admin_auth.php';
 $message = '';
 if  ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -29,7 +29,7 @@ if  ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 include 'includes/header.php';
 ?>
-<div class="d-flex justify_content_between align_item_center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h2>เพิ่มสินค้า</h2>
     <a href="manage_products.php" class="btn btn-secondary">กลับ</a>
 </div>

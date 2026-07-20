@@ -31,7 +31,7 @@ include 'includes/header.php';
                         <td>#<?= $order['id'] ?></td>
                         <td><?= date('d/m/Y H:i',strtotime($order['created_at'])) ?></td>
                         <td><?= number_format($order['total_price'],2) ?> บาท</td>
-                        <td><?php $paymentClass = 'bg-waring';
+                        <td><?php $paymentClass = 'bg-warning';
                             if ($order['payment_status'] === 'paid') {
                                 $paymentClass = 'bg-success';
                             }
@@ -59,7 +59,7 @@ include 'includes/header.php';
                             </span>
                         </td>
                         <td>
-                            <a href="order_success.php?id<?= $order['id'] ?>"
+                            <a href="order_success.php?id=<?= $order['id'] ?>"
                             class="btn btn-sm btn-primary">ดูรายละเอียด</a>
                         </td>
                     </tr>

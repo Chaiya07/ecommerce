@@ -18,34 +18,55 @@ $sql = $conn->query("SELECT id, customer_name, total_price, payment_status,
     shipping_status, created_at FROM orders ORDER BY id DESC LIMIT 10");
 $orders = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-include '../includes/header.php';
+$currenPage = 'dashboard.php';
+include 'includes/header.php';
 ?>
+
+<style>
+    .stat-card {
+        border: none;
+        border-radius: 12px;
+        color: #ffffff;
+    }
+    .stat-card .card-body {
+        color: #ffffff;
+    }
+    .stat-card h3 {
+        color: #ffffff;
+        font-weight: 700;
+    }
+    .stat-card-users    { background-color: #0d6efd; }
+    .stat-card-products { background-color: #198754; }
+    .stat-card-orders   { background-color: #fd7e14; }
+    .stat-card-sales    { background-color: #dc3545; }
+</style>
+
 <div class="container-fluid">
     <h2 class="mb-4">Dashboard</h2>
     <div class="row">
         <div class="col-md-3 mb-3">
-            <div class="card border-primary">
+            <div class="card stat-card stat-card-users">
                 <div class="card-body text-center">
                     <h3><?= number_format($totalUsers) ?></h3>สมาชิก
                 </div>
             </div>
         </div>
         <div class="col-md-3 mb-3">
-            <div class="card border-success">
+            <div class="card stat-card stat-card-products">
                 <div class="card-body text-center">
                     <h3><?= number_format($totalProducts) ?></h3>สินค้า
                 </div>
             </div>
         </div>
         <div class="col-md-3 mb-3">
-            <div class="card border-warning">
+            <div class="card stat-card stat-card-orders">
                 <div class="card-body text-center">
                     <h3><?= number_format($totalOrders) ?></h3>คำสั่งซื้อ
                 </div>
             </div>
         </div>
         <div class="col-md-3 mb-3">
-            <div class="card border-danger">
+            <div class="card stat-card stat-card-sales">
                 <div class="card-body text-center">
                     <h3><?= number_format($totalSales, 2) ?></h3>ยอดขาย (บาท)
                 </div>
@@ -84,3 +105,5 @@ include '../includes/header.php';
         </div>
     </div>
 </div>
+
+<?php include 'includes/footer.php'; ?>

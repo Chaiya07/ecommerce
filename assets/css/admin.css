@@ -14,7 +14,8 @@ body{
 ========================================================== */
 
 .navbar{
-	box-shadow:0 2px 8px rgba(0,0,0,.08);
+	background-color:var(--ink) !important;
+	border-bottom:2px solid var(--gold);
 }
 
 .navbar-brand{
@@ -27,7 +28,7 @@ body{
 ========================================================== */
 
 .sidebar{
-	background:#212529;
+	background:#1B2A32; /* แทน #212529 เดิม ให้เข้าธีมครามแทนเทาดำ */
 	min-height:100vh;
 }
 
@@ -41,14 +42,15 @@ body{
 }
 
 .sidebar a:hover{
-	background:#0d6efd;
+	background:#3E6E75; /* แทน #0d6efd */
 	color:#fff;
 	padding-left:28px;
 }
 
 .sidebar a.active{
-	background:#0d6efd;
-	font-weight:600;
+	background:#B98A3E; /* แทน #0d6efd */
+	color:#1B2A32;
+	font-weight:700;
 }
 
 .sidebar hr{
@@ -156,20 +158,36 @@ textarea.form-control{
 	border:none;
 	border-radius:12px;
 	color:#fff;
+	overflow:hidden;
+	position:relative;
+	transition:transform .18s ease, box-shadow .18s ease;
 }
 
-.stat-card .icon{
-	font-size:40px;
-	opacity:.3;
+.stat-card:hover{
+	transform:translateY(-4px);
+	box-shadow:0 12px 28px rgba(0,0,0,.18);
 }
 
-.stat-card .value{
-	font-size:28px;
-	font-weight:700;
+.stat-card .card-body{
+	padding:22px 24px;
 }
 
 .stat-card .label{
-	font-size:14px;
+	font-size:13px;
+	opacity:.85;
+	margin-bottom:6px;
+	letter-spacing:.3px;
+}
+
+.stat-card .value{
+	font-size:26px;
+	font-weight:700;
+	line-height:1.1;
+}
+
+.stat-card .icon{
+	font-size:34px;
+	opacity:.35;
 }
 
 /* ==========================================================

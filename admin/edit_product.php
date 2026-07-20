@@ -1,13 +1,13 @@
 <?php
 require_once '../config/database.php';
-require_once '../includes/admin_auth.php';
+require_once 'includes/admin_auth.php';
 $id = isset($_GET['id']) ? (int)$_GET['id']: 0;
 if ($id <=0) {
     header('Location: manage_products.php');
     exit();
 }
 $sql = $conn->prepare("SELECT * FROM products WHERE id = ?");
-$sql->execute(['id']);
+$sql->execute([$id]);
 $product = $sql->fetch(PDO::FETCH_ASSOC);
 if (!$product) {
     header('Location: manage_products.php');
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 include 'includes/header.php';
 ?>
-<div class="d-flex justify_content_between align_item_center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h2>แก้ไขสินค้า</h2>
     <a href="manage_products.php" class="btn btn-secondary">กลับ</a>
 </div>
@@ -59,9 +59,7 @@ include 'includes/header.php';
             </div>
             <div class="mb-3">
                 <label class="form-label">รายละเอียดสินค้า</label>
-                <textarea name="description" rows="5" class="form-control">
-                    <?= htmlspecialchars($product['description']) ?>
-                </textarea>
+                <textarea name="description" rows="5" class="form-control"><?= htmlspecialchars($product['description']) ?></textarea>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -92,7 +90,7 @@ include 'includes/header.php';
                     <?php endif; ?>
             </div>
             <div class="mb-3">
-                <label class="form_label">
+                <label class="form-label">
                     อัปโหลดรูปใหม่
                 </label>
                 <input type="file" name="image" class="form-control" accept=".jpg,.jpeg,.png,.webp">

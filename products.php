@@ -11,7 +11,7 @@ include 'includes/header.php';
 <div class="row mb-4">
     <div class="col-md-12">
         <h2>สินค้าทั้งหมด</h2>
-    </diV>
+    </div>
 </div>
 <form method="GET" class="row mb-4">
     <div class="col-md-10">
@@ -29,7 +29,7 @@ include 'includes/header.php';
                 <div class="card h-100">
                     <?php $image = !empty($product['image'])
                     ?'uploads/products/'.$product['image']
-                    :'https://via.placholdae.com/300x250';?>
+                    :'https://via.placeholder.com/300x250?text=No+Image';?>
                     <img src="<?= $image ?>" class="card-img-top"
                     style="height: 250px;object-fit:cover" alt="" >
                     <div class="card-body">

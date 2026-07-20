@@ -46,7 +46,7 @@ include 'includes/header.php';
                 <p><strong>สถานะจัดส่ง :</strong>
                     <span class="badge bg-info"><?= $order['shipping_status'] ?></span>
                 </p>
-                <p><strong>วันที่สั่งซื้อ :</strong> <?= $order['create_at'] ?></p>
+                <p><strong>วันที่สั่งซื้อ :</strong> <?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></p>
             </div>
         </div>
     </div>

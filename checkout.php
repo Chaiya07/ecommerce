@@ -32,11 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $paymentSlip = null;
 
 if ($paymentMethod === 'transfer' && !empty($_FILES['payment_slip']['name'])) {
-    $fileName = time() .'_'. basename($_FILES['payment_slip']['name']);
-    move_uploaded_file($_FILES['payment_slip']['tmp_name']
-    ,'uploads/slips/' . $fileName);
-    $paymentSlip = $fileName;
-} try {
+    $ext = strtolower(pathinfo($_FILES['payment_slip']['name'], PATHINFO_EXTENSION));
+    if (in_array($ext, ['jpg','jpeg','png','webp','pdf'])) {
+        $fileName = time() . '_' . uniqid() . '.' . $ext;
+        move_uploaded_file($_FILES['payment_slip']['tmp_name'], 'uploads/slips/' . $fileName);
+        $paymentSlip = $fileName;
+    } 
+}   try {
     $conn->beginTransaction();
     $userId = null;
     if (!empty($_SESSION['user'])) {
@@ -64,7 +66,7 @@ if ($paymentMethod === 'transfer' && !empty($_FILES['payment_slip']['name'])) {
     $orderId = $conn->lastInsertId();
     foreach ($_SESSION['cart'] as $item) {
         $subtotal = $item['price'] * $item['qty'];
-        $sqlItem = $conn->prepare("INSERT INTO  orders_items(
+        $sqlItem = $conn->prepare("INSERT INTO order_items(
         order_id,
         product_id,
         quantity,
@@ -110,8 +112,7 @@ include 'includes/header.php';
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">ชื่อผู้รับ</label>
-                <input type="text" name="customer_name" 
-                class="form-control" require>
+                <input type="text" name="customer_name" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">อีเมลล์</label>

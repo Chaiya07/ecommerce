@@ -12,8 +12,9 @@ body{
    NAVBAR
 ========================================================== */
 
-.navbar-brand{
-	font-weight:700;
+.navbar-brand {
+    font-weight: 700;
+    color: #B98A3E !important;
 }
 
 /* ==========================================================
@@ -96,4 +97,135 @@ footer a{
 
 footer a:hover{
 	color:#0d6efd;
+}
+
+/* ==========================================================
+   HOME / HERO — ไชยยา ศรีวิชัย x ทะเลใต้
+========================================================== */
+
+:root{
+	--ink:#20303A;
+	--paper:#F6F3EC;
+	--gold:#B98A3E;
+	--teal:#3E6E75;
+	--line:#E4DCC9;
+}
+
+body{
+	font-family:'Noto Sans Thai',sans-serif;
+	background:var(--paper);
+	color:var(--ink);
+}
+
+h1, h2, h3, .navbar-brand{
+	font-family:'Noto Serif Thai',serif;
+	color:var(--ink);
+}
+
+.hero-shop{
+	background:
+		radial-gradient(circle at 100% 0%, rgba(62,110,117,.08), transparent 55%),
+		var(--paper);
+	border:1px solid var(--line);
+	border-radius:4px;
+	padding:56px 44px;
+	position:relative;
+	overflow:hidden;
+}
+
+.hero-shop::before{
+	content:'';
+	position:absolute;
+	left:0; top:0; bottom:0;
+	width:4px;
+	background:var(--gold);
+}
+
+.hero-shop h1{
+	font-weight:700;
+	letter-spacing:.3px;
+}
+
+.hero-shop p{
+	color:#5B5F5A;
+	max-width:560px;
+}
+
+.hero-shop .btn-primary{
+	background:var(--ink);
+	border-color:var(--ink);
+	padding:11px 30px;
+	border-radius:3px;
+	font-weight:500;
+	letter-spacing:.5px;
+	transition:.2s;
+}
+
+.hero-shop .btn-primary:hover{
+	background:var(--gold);
+	border-color:var(--gold);
+	color:var(--ink);
+}
+
+/* section title: เส้นคลื่นเล็กแทนแท่งสี่เหลี่ยม */
+.section-title{
+	font-weight:700;
+	color:var(--ink);
+	position:relative;
+	padding-bottom:14px;
+}
+
+.section-title::after{
+	content:'';
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:56px;
+	height:6px;
+	background-image: radial-gradient(circle, var(--teal) 2px, transparent 2.2px);
+	background-size: 8px 8px;
+	background-repeat: repeat-x;
+}
+
+.product-card{
+	border:1px solid var(--line);
+	border-radius:6px;
+	background:#fff;
+	transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.product-card:hover{
+	transform:translateY(-3px);
+	border-color:var(--gold);
+	box-shadow:0 10px 24px rgba(32,48,58,.08);
+}
+
+.product-card .card-title{
+	color:var(--ink);
+	font-weight:500;
+	font-size:16px;
+}
+
+/* ป้ายราคาทรงตั๋ว มีรอยบากมุม */
+.product-price{
+	color:var(--ink);
+	font-weight:700;
+	font-size:17px;
+	display:inline-flex;
+	align-items:center;
+	gap:6px;
+	background:var(--paper);
+	border:1px dashed var(--gold);
+	padding:3px 10px 3px 8px;
+	border-radius:2px;
+}
+
+.product-price::before{
+	content:'฿';
+	color:var(--gold);
+	font-weight:400;
+}
+
+.product-price::after{
+	content:none;
 }

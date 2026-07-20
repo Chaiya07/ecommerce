@@ -19,8 +19,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <i class="bi bi-people-fill me-2"></i>จัดการสมาชิก
         </a>
 
-        <a href="manage_product.php"
-           class="<?= ($currentPage === 'manage_product.php') ? 'active' : '' ?>">
+        <a href="manage_products.php"
+           class="<?= ($currentPage === 'manage_products.php') ? 'active' : '' ?>">
             <i class="bi bi-box-seam me-2"></i>จัดการสินค้า
         </a>
 

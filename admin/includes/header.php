@@ -29,6 +29,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         <style>
             body {background: #f5f6fa; font-size: 15px;}
             .navbar {box-shadow: 0 2px 8px rgba(0, 0, 0, .08);}
