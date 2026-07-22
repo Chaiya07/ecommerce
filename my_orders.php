@@ -59,7 +59,7 @@ include 'includes/header.php';
                             </span>
                         </td>
                         <td>
-                            <a href="order_success.php?id=<?= $order['id'] ?>"
+                            <a href="order_detail.php?id=<?= $order['id'] ?>"
                             class="btn btn-sm btn-primary">ดูรายละเอียด</a>
                         </td>
                     </tr>
