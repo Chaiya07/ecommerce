@@ -229,3 +229,23 @@ h1, h2, h3, .navbar-brand{
 .product-price::after{
 	content:none;
 }
+
+/* ---- เพิ่มเข้าไปที่ท้ายไฟล์ assets/css/style.css เดิม ---- */
+
+.order-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
+}
+
+.order-table thead th {
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.badge-status {
+    font-weight: 500;
+    padding: .45em .7em;
+    border-radius: 20px;
+}
