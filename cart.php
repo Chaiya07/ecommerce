@@ -29,10 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_coupon'])) {
     $sql = $conn->prepare("SELECT * FROM coupons WHERE code = ? AND status = 'active'");
     $sql->execute([$couponCode]);
     $coupon = $sql->fetch(PDO::FETCH_ASSOC);
+
     if ($coupon) {
         $today = date("Y-m-d");
+
         if (!empty($coupon["expiry_date"]) && $coupon['expiry_date'] < $today) {
             $message = 'คูปองหมดอายุแล้ว';
+        } elseif (!empty($coupon['usage_limit']) && $coupon['used_count'] >= $coupon['usage_limit']) {
+            $message = 'คูปองนี้ถูกใช้ครบจำนวนสิทธิ์แล้ว';
         } else {
             $_SESSION['coupon'] = $coupon;
             $message = 'ใช้คูปองสำเร็จ';
