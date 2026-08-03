@@ -190,7 +190,7 @@ include 'includes/header.php';
                                     </a>
                                     <a href="manage_orders.php?delete=<?= $order['id'] ?>"
                                         class="btn btn-outline-danger btn-icon-sm" title="ลบ"
-                                        onclick="return confirm('ยืนยันการลบคำสั่งซื้อนี้?')">
+                                        onclick="return confirmDelete(event, this.href, 'ลบคำสั่งซื้อ #<?= $order['id'] ?> นี้?')">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>

@@ -117,7 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 include 'includes/header.php';
 ?>
-<h2 class="mb-4" data-aos="fade-up">ยืนยันคำสั่งซื้อ</h2>
+<div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-up">
+    <h2 class="mb-0">ยืนยันคำสั่งซื้อ</h2>
+    <?php renderBackButton('cart.php'); ?>
+</div>
 
 <?php if ($message) : ?>
     <div class="alert alert-danger" data-aos="fade-up">

@@ -4,18 +4,32 @@ $sql = $conn->prepare("SELECT * FROM products ORDER BY id DESC LIMIT 8");
 $sql->execute();
 $products = $sql->fetchAll(PDO::FETCH_ASSOC);
 include 'includes/header.php';
+
+$s = $GLOBALS['storeSettings'] ?? [];
 ?>
-<div class="p-5 mb-4 bg-light rounded-3" data-aos="fade-up">
-    <div class="container-fluid py-3">
-        <h1 class="display-5 fw-bold">ยินดีต้อนรับเข้าสู่ร้านค้าออนไลน์</h1>
-        <p class="col-md-8 fs-5">
-            เลือกซื้อสินค้าคุณภาพดี ราคาคุ้มค่า พร้อมโปรโมชั่นพิเศษ
-        </p>
-        <a href="products.php" class="btn btn-primary btn-lg">
-            เลือกซื้อสินค้า
-        </a>
+
+<?php if (!empty($s['banner'])) : ?>
+    <div class="hero-banner mb-4" data-aos="fade-up"
+        style="background-image: url('uploads/settings/<?= htmlspecialchars($s['banner']) ?>');">
+        <div class="hero-banner-overlay">
+            <h1 class="display-5 fw-bold">ยินดีต้อนรับเข้าสู่ <?= htmlspecialchars($s['name'] ?? 'ร้านค้าออนไลน์') ?></h1>
+            <p class="fs-5">เลือกซื้อสินค้าคุณภาพดี ราคาคุ้มค่า พร้อมโปรโมชั่นพิเศษ</p>
+            <a href="products.php" class="btn btn-primary btn-lg">เลือกซื้อสินค้า</a>
+        </div>
     </div>
-</div>
+<?php else : ?>
+    <div class="p-5 mb-4 bg-light rounded-3" data-aos="fade-up">
+        <div class="container-fluid py-3">
+            <h1 class="display-5 fw-bold">ยินดีต้อนรับเข้าสู่ร้านค้าออนไลน์</h1>
+            <p class="col-md-8 fs-5">
+                เลือกซื้อสินค้าคุณภาพดี ราคาคุ้มค่า พร้อมโปรโมชั่นพิเศษ
+            </p>
+            <a href="products.php" class="btn btn-primary btn-lg">
+                เลือกซื้อสินค้า
+            </a>
+        </div>
+    </div>
+<?php endif; ?>
 
 <div class="row" data-aos="fade-up">
     <div class="col-12 mb-4">

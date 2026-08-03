@@ -3,19 +3,67 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/functions.php';
 $cartCount = 0;
 if (!empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
         $cartCount += $item['qty'];
     }
 }
+
+// ดึงข้อมูลร้านค้าจากฝั่งแอดมิน
+$storeName = 'ไชยยา';
+$storeLogo = '';
+$storeFavicon = '';
+$storeBanner = '';
+$storeAddress = '';
+$storePhone = '';
+$storeEmail = '';
+$storeFacebook = '';
+$storeLineId = '';
+try {
+    $settingSql = $conn->query("SELECT * FROM settings LIMIT 1");
+    $setting = $settingSql->fetch(PDO::FETCH_ASSOC);
+    if ($setting) {
+        if (!empty($setting['store_name'])) {
+            $storeName = $setting['store_name'];
+        }
+        $storeLogo     = $setting['logo'] ?? '';
+        $storeFavicon  = $setting['favicon'] ?? '';
+        $storeBanner   = $setting['banner'] ?? '';
+        $storeAddress  = $setting['store_address'] ?? '';
+        $storePhone    = $setting['store_phone'] ?? '';
+        $storeEmail    = $setting['store_email'] ?? '';
+        $storeFacebook = $setting['facebook'] ?? '';
+        $storeLineId   = $setting['line_id'] ?? '';
+    }
+} catch (Exception $e) {
+    // ใช้ค่าเริ่มต้นถ้าดึงไม่สำเร็จ
+}
+
+// เก็บไว้ใช้ต่อในหน้าอื่นๆ (เช่น index.php แสดง banner, footer.php แสดงข้อมูลติดต่อ)
+$GLOBALS['storeSettings'] = [
+    'name'     => $storeName,
+    'logo'     => $storeLogo,
+    'favicon'  => $storeFavicon,
+    'banner'   => $storeBanner,
+    'address'  => $storeAddress,
+    'phone'    => $storePhone,
+    'email'    => $storeEmail,
+    'facebook' => $storeFacebook,
+    'line_id'  => $storeLineId,
+];
 ?>
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chaiya E-commerce</title>
+    <title><?= htmlspecialchars($storeName) ?> E-commerce</title>
+
+    <?php if (!empty($storeFavicon)) : ?>
+        <link rel="icon" href="uploads/settings/<?= htmlspecialchars($storeFavicon) ?>">
+    <?php endif; ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +80,14 @@ if (!empty($_SESSION['cart'])) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top site-navbar">
         <div class="container">
-            <a class="navbar-brand" href="index.php">ไชยยา</a>
+            <a class="navbar-brand d-flex align-items-center" href="index.php">
+                <?php if (!empty($storeLogo)) : ?>
+                    <img src="uploads/settings/<?= htmlspecialchars($storeLogo) ?>"
+                        alt="<?= htmlspecialchars($storeName) ?>"
+                        height="32" class="me-2">
+                <?php endif; ?>
+                <?= htmlspecialchars($storeName) ?>
+            </a>
             <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>

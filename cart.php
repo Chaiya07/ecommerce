@@ -54,7 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_coupon'])) {
 include 'includes/header.php';
 $total = 0;
 ?>
-<h2 class="mb-4" data-aos="fade-up">ตะกร้าสินค้า</h2>
+<div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-up">
+    <h2 class="mb-0">ตะกร้าสินค้า</h2>
+    <?php renderBackButton('products.php'); ?>
+</div>
 
 <?php if ($message) : ?>
     <div class="alert alert-info" data-aos="fade-up"><?= $message ?></div>

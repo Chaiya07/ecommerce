@@ -47,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 include 'includes/header.php';
 $image = !empty($product['image']) ? 'uploads/products/' . $product['image'] : '';
 ?>
+<div class="mb-4">
+    <?php renderBackButton('products.php'); ?>
+</div>
 <div class="row">
     <div class="col-md-5" data-aos="fade-right">
         <img src="<?= $image ?>" class="img-fluid rounded shadow"

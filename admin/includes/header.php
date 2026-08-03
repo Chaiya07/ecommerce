@@ -18,7 +18,14 @@ if ($setting && !empty($setting['store_name'])) {
     'ครูบอกเว้นเอาไว้';
 }
 $currentPage = basename($_SERVER['PHP_SELF']);
-?>
+function renderBackButton($fallbackUrl = 'dashboard.php', $label = 'กลับ', $class = 'btn btn-secondary', $attrs = '') {
+    $fallbackUrl = htmlspecialchars($fallbackUrl, ENT_QUOTES, 'UTF-8');
+    $label = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
+    $class = htmlspecialchars($class, ENT_QUOTES, 'UTF-8');
+    echo '<a href="' . $fallbackUrl . '" class="' . $class . '" onclick="safeGoBack(\'' . $fallbackUrl . '\'); return false;" ' . $attrs . '>';
+    echo '<i class="bi bi-arrow-left"></i> ' . $label;
+    echo '</a>';
+}?>
 <!DOCTYPE html>
 <html lang="th">
     <head>
@@ -48,6 +55,23 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             .card {border: none; border-radius: 12px;}
             .table {background: #fff;}
         </style>
+        <script>
+            function safeGoBack(defaultUrl) {
+                var referrer = document.referrer;
+                if (referrer) {
+                    try {
+                        var ref = new URL(referrer);
+                        if (ref.origin === location.origin) {
+                            history.back();
+                            return;
+                        }
+                    } catch (e) {
+                        // ignore invalid referrer
+                    }
+                }
+                window.location.href = defaultUrl;
+            }
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

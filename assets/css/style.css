@@ -1,5 +1,6 @@
 /* ============================
    Chaiya E-Commerce - style.css
+   (ไฟล์นี้แทนที่ของเดิมทั้งหมด)
    ============================ */
 
 body {
@@ -48,4 +49,187 @@ body {
 
 .product-card:hover .card-img-top {
     transform: scale(1.05);
+}
+
+/* ---- การ์ดหน้าคำสั่งซื้อ ---- */
+.order-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
+}
+
+.order-table thead th {
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.badge-status {
+    font-weight: 500;
+    padding: .45em .7em;
+    border-radius: 20px;
+}
+
+/* ============================
+   Hero Banner (index.php)
+   ============================ */
+.hero-banner {
+    position: relative;
+    height: 340px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.hero-banner-overlay {
+    background: linear-gradient(90deg,
+        rgba(0, 0, 0, .85) 0%,
+        rgba(0, 0, 0, .65) 40%,
+        rgba(0, 0, 0, .25) 75%,
+        rgba(0, 0, 0, .1) 100%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem;
+    color: #fff;
+}
+
+.hero-banner-overlay h1,
+.hero-banner-overlay p {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .7);
+    max-width: 620px;
+}
+
+.hero-banner-overlay .btn-primary {
+    width: fit-content;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .4);
+}
+
+/* ============================
+   Footer
+   ============================ */
+.site-footer {
+    background: #212529;
+    color: #dee2e6;
+    border-top: 3px solid #0d6efd;
+}
+
+.footer-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: .75rem;
+}
+
+.footer-text {
+    color: #adb5bd;
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+.footer-heading {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: .9rem;
+    color: #adb5bd;
+}
+
+.footer-list li {
+    margin-bottom: .7rem;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+
+.footer-list i {
+    margin-top: .2rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: .6rem;
+}
+
+.footer-social-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: .2s;
+}
+
+.footer-social-icon:hover {
+    background: #0d6efd;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    background: rgba(0, 0, 0, .25);
+    color: #adb5bd;
+    font-size: .85rem;
+}
+
+/* ============================
+   Responsive (มือถือ / แท็บเล็ต)
+   ============================ */
+@media (max-width: 767.98px) {
+    .hero-banner {
+        height: auto;
+        min-height: 280px;
+    }
+
+    .hero-banner-overlay {
+        /* บนมือถือพื้นที่แคบ ใช้พื้นทึบแทน gradient จะอ่านง่ายกว่า */
+        background: rgba(0, 0, 0, .72);
+        padding: 1.75rem 1.25rem;
+        text-align: left;
+    }
+
+    .hero-banner-overlay h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-banner-overlay p {
+        font-size: .95rem;
+    }
+
+    .footer-title,
+    .footer-heading {
+        margin-top: 1rem;
+    }
+
+    .site-footer .row > div {
+        text-align: center;
+    }
+
+    .footer-title,
+    .footer-list li {
+        justify-content: center;
+    }
+
+    .footer-social {
+        justify-content: center;
+    }
 }
