@@ -107,7 +107,7 @@ include 'includes/header.php';
                     <tr>
                         <th>รหัสคูปอง</th>
                         <th>ประเภท</th>
-                        <th>มูลค่า</th>
+                        <th>ส่วนลด</th>
                         <th>ใช้ไปแล้ว</th>
                         <th>สิทธิ์ทั้งหมด</th>
                         <th>วันหมดอายุ</th>

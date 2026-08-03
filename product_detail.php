@@ -48,11 +48,11 @@ include 'includes/header.php';
 $image = !empty($product['image']) ? 'uploads/products/' . $product['image'] : '';
 ?>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-5" data-aos="fade-right">
         <img src="<?= $image ?>" class="img-fluid rounded shadow"
             alt="<?= htmlspecialchars($product['name']) ?>">
     </div>
-    <div class="col-md-7">
+    <div class="col-md-7" data-aos="fade-left">
         <h2><?= htmlspecialchars($product['name']) ?></h2>
         <hr>
         <h3 class="text-danger"><?= number_format($product['price'], 2) ?> บาท</h3>

@@ -1,15 +1,13 @@
 <?php
 require_once __DIR__ . '/config/database.php';
-$sql = $conn->prepare("
-SELECT * FROM products ORDER BY id DESC LIMIT 8
-");
+$sql = $conn->prepare("SELECT * FROM products ORDER BY id DESC LIMIT 8");
 $sql->execute();
 $products = $sql->fetchAll(PDO::FETCH_ASSOC);
 include 'includes/header.php';
 ?>
-<div class="hero-shop mb-4">
+<div class="p-5 mb-4 bg-light rounded-3" data-aos="fade-up">
     <div class="container-fluid py-3">
-        <h1 class="display-5">ยินดีต้อนรับเข้าสู่ร้านค้าออนไลน์</h1>
+        <h1 class="display-5 fw-bold">ยินดีต้อนรับเข้าสู่ร้านค้าออนไลน์</h1>
         <p class="col-md-8 fs-5">
             เลือกซื้อสินค้าคุณภาพดี ราคาคุ้มค่า พร้อมโปรโมชั่นพิเศษ
         </p>
@@ -18,16 +16,18 @@ include 'includes/header.php';
         </a>
     </div>
 </div>
-<div class="row">
+
+<div class="row" data-aos="fade-up">
     <div class="col-12 mb-4">
-        <h2 class="section-title">สินค้าล่าสุด</h2>
+        <h2>สินค้าล่าสุด</h2>
     </div>
 </div>
+
 <div class="row">
     <?php if (count($products) > 0) : ?>
-        <?php foreach ($products as $product) : ?>
-            <div class="col-md-3 mb-4">
-                <div class="card product-card h-100">
+        <?php foreach ($products as $index => $product) : ?>
+            <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="<?= $index * 80 ?>">
+                <div class="card h-100 shadow-sm product-card">
                     <?php $image = !empty($product['image'])
                         ? 'uploads/products/' . $product['image']
                         : 'https://via.placeholder.com/300x250?text=No+Image';
@@ -39,7 +39,7 @@ include 'includes/header.php';
                         <h5 class="card-title">
                             <?= htmlspecialchars($product['name']) ?>
                         </h5>
-                        <p class="product-price mb-2">
+                        <p class="text-danger fw-bold mb-2">
                             <?= number_format($product['price'], 2) ?> บาท
                         </p>
                     </div>
@@ -51,7 +51,7 @@ include 'includes/header.php';
             </div>
         <?php endforeach; ?>
     <?php else : ?>
-        <div class="col-12">
+        <div class="col-12" data-aos="fade-up">
             <div class="alert alert-warning">ไม่พบสินค้าในระบบ</div>
         </div>
     <?php endif; ?>

@@ -1,9 +1,15 @@
 <?php
 require_once __DIR__ . '/config/database.php';
 session_start();
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
 $message = '';
 $discount = 0;
 $couponCode = '';
+
 if (isset($_GET['remove'])) {
     $productId = (int)$_GET['remove'];
     if (isset($_SESSION['cart'][$productId])) {
@@ -11,7 +17,8 @@ if (isset($_GET['remove'])) {
     }
     header('Location: cart.php');
     exit;
-}   
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_cart'])) {
     foreach ($_POST['qty'] as $productId => $qty) {
         $qty = (int)$qty;
@@ -29,10 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_coupon'])) {
     $sql = $conn->prepare("SELECT * FROM coupons WHERE code = ? AND status = 'active'");
     $sql->execute([$couponCode]);
     $coupon = $sql->fetch(PDO::FETCH_ASSOC);
-
     if ($coupon) {
         $today = date("Y-m-d");
-
         if (!empty($coupon["expiry_date"]) && $coupon['expiry_date'] < $today) {
             $message = 'คูปองหมดอายุแล้ว';
         } elseif (!empty($coupon['usage_limit']) && $coupon['used_count'] >= $coupon['usage_limit']) {
@@ -49,59 +54,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apply_coupon'])) {
 include 'includes/header.php';
 $total = 0;
 ?>
-<h2 class="mb-4">ตะกร้าสินค้า</h2>
+<h2 class="mb-4" data-aos="fade-up">ตะกร้าสินค้า</h2>
 
 <?php if ($message) : ?>
-    <div class="alert alert-info"><?= $message ?></div>
+    <div class="alert alert-info" data-aos="fade-up"><?= $message ?></div>
 <?php endif; ?>
 
 <?php if (empty($_SESSION['cart'])) : ?>
-    <div class="alert alert-warning">ยังไม่มีสินค้า</div>
-    <a href="products.php" class="btn btn-primary">เลือกสินค้า</a>
+    <div class="alert alert-warning" data-aos="fade-up">ยังไม่มีสินค้า</div>
+    <a href="products.php" class="btn btn-primary" data-aos="fade-up">เลือกสินค้า</a>
 <?php else : ?>
     <form method="post">
-        <div class="table-responsive">
-            <table class="table table-bordered align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th width="120">รูปสินค้า</th>
-                        <th>สินค้า</th>
-                        <th width="150">ราคา</th>
-                        <th width="120">จำนวน</th>
-                        <th width="150">รวม</th>
-                        <th width="100">ลบ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($_SESSION['cart'] as $item) : ?>
-                        <?php
-                        $image = !empty($item['image']) ? 'uploads/products/' . $item['image'] : '';
-                        $subtotal = $item['price'] * $item['qty'];
-                        $total += $subtotal;
-                        ?>
-                        <tr>
-                            <td><img src="<?= $image ?>" class="img-fluid" style="max-height: 80px;"></td>
-                            <td><?= htmlspecialchars($item['name']) ?></td>
-                            
-                            <td><?= number_format($item['price'], 2) ?></td>
-                            <td>
-                                <input type="number" name="qty[<?= $item['id'] ?>]"
-                                    value="<?= $item['qty'] ?>" min="1" class="form-control">
-                            </td>
-                            <td><?= number_format($subtotal, 2) ?></td>
-                            <td>
-                                <a href="cart.php?remove=<?= $item['id'] ?>"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="return confirm('ลบสินค้านี้หรือไม่ ?')">ลบ</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+        <div class="card order-card mb-4" data-aos="fade-up">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th width="120">รูปสินค้า</th>
+                                <th>สินค้า</th>
+                                <th width="150">ราคา</th>
+                                <th width="120">จำนวน</th>
+                                <th width="150">รวม</th>
+                                <th width="100">ลบ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($_SESSION['cart'] as $item) : ?>
+                                <?php
+                                $image = !empty($item['image']) ? 'uploads/products/' . $item['image'] : '';
+                                $subtotal = $item['price'] * $item['qty'];
+                                $total += $subtotal;
+                                ?>
+                                <tr>
+                                    <td><img src="<?= $image ?>" class="img-fluid" style="max-height: 80px;"></td>
+                                    <td><?= htmlspecialchars($item['name']) ?></td>
+                                    <td><?= number_format($item['price'], 2) ?></td>
+                                    <td>
+                                        <input type="number" name="qty[<?= $item['id'] ?>]"
+                                            value="<?= $item['qty'] ?>" min="1" class="form-control">
+                                    </td>
+                                    <td><?= number_format($subtotal, 2) ?></td>
+                                    <td>
+                                        <a href="cart.php?remove=<?= $item['id'] ?>"
+                                            class="btn btn-danger btn-sm"
+                                            onclick="return confirm('ลบสินค้านี้หรือไม่ ?')">ลบ</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit" name="update_cart" class="btn btn-warning">อัปเดตตะกร้า</button>
+            </div>
         </div>
-        <button type="submit" name="update_cart" class="btn btn-warning">อัปเดตตะกร้า</button>
     </form>
-    <hr>
 
     <?php
     $finalTotal = $total;
@@ -120,17 +127,21 @@ $total = 0;
     ?>
 
     <div class="row mt-4">
-        <div class="col-md-6">
-            <form method="post">
-                <label class="form-label">รหัสคูปอง</label>
-                <div class="input-group">
-                    <input type="text" name="coupon_code" class="form-control" placeholder="กรอกรหัสคูปอง">
-                    <button type="submit" name="apply_coupon" class="btn btn-success">ใช้งาน</button>
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="80">
+            <div class="card order-card">
+                <div class="card-body">
+                    <label class="form-label">รหัสคูปอง</label>
+                    <form method="post">
+                        <div class="input-group">
+                            <input type="text" name="coupon_code" class="form-control" placeholder="กรอกรหัสคูปอง">
+                            <button type="submit" name="apply_coupon" class="btn btn-success">ใช้งาน</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="140">
+            <div class="card order-card">
                 <div class="card-body">
                     <h5>สรุปการสั่งซื้อ</h5>
                     <hr>

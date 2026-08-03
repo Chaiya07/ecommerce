@@ -104,6 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $conn->commit();
+        unset($_SESSION['cart']);
+        unset($_SESSION['coupon']);
         header('Location: order_success.php?id=' . $orderId);
         exit;
 
@@ -115,56 +117,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 include 'includes/header.php';
 ?>
-<h2 class="mb-4">ยืนยันคำสั่งซื้อ</h2>
+<h2 class="mb-4" data-aos="fade-up">ยืนยันคำสั่งซื้อ</h2>
 
 <?php if ($message) : ?>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" data-aos="fade-up">
         <?= $message ?>
     </div>
 <?php endif; ?>
 
 <div class="row">
-    <div class="col-md-7">
-        <form method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label class="form-label">ชื่อผู้รับ</label>
-                <input type="text" name="customer_name" class="form-control" required>
-            </div>
+    <div class="col-md-7" data-aos="fade-up">
+        <div class="card order-card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">ชื่อผู้รับ</label>
+                        <input type="text" name="customer_name" class="form-control" required>
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">อีเมล</label>
-                <input type="email" name="customer_email" class="form-control" required>
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label">อีเมล</label>
+                        <input type="email" name="customer_email" class="form-control" required>
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">เบอร์โทรศัพท์</label>
-                <input type="text" name="customer_phone" class="form-control" required>
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label">เบอร์โทรศัพท์</label>
+                        <input type="text" name="customer_phone" class="form-control" required>
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">ที่อยู่จัดส่ง</label>
-                <textarea name="customer_address" class="form-control" rows="4" required></textarea>
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label">ที่อยู่จัดส่ง</label>
+                        <textarea name="customer_address" class="form-control" rows="4" required></textarea>
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">วิธีชำระเงิน</label>
-                <select name="payment_method" class="form-select" required>
-                    <option value="transfer">โอนเงิน</option>
-                    <option value="cod">เก็บเงินปลายทาง</option>
-                </select>
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label">วิธีชำระเงิน</label>
+                        <select name="payment_method" class="form-select" required>
+                            <option value="transfer">โอนเงิน</option>
+                            <option value="cod">เก็บเงินปลายทาง</option>
+                        </select>
+                    </div>
 
-            <div class="mb-3">
-                <label class="form-label">แนบสลิปโอนเงิน</label>
-                <input type="file" name="payment_slip" class="form-control">
-            </div>
+                    <div class="mb-3">
+                        <label class="form-label">แนบสลิปโอนเงิน</label>
+                        <input type="file" name="payment_slip" class="form-control">
+                    </div>
 
-            <button type="submit" class="btn btn-success">ยืนยันคำสั่งซื้อ</button>
-        </form>
+                    <button type="submit" class="btn btn-success">ยืนยันคำสั่งซื้อ</button>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-5">
-        <div class="card">
+    <div class="col-md-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="card order-card">
             <div class="card-header">สรุปคำสั่งซื้อ</div>
             <div class="card-body">
                 <p>ยอดรวม :
